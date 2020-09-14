@@ -1,5 +1,4 @@
-from flask import Flask
-import time
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -9,6 +8,10 @@ def home():
     return "home"
 
 @app.route('/api')
+def get():
+    language = request.args.get("search")
+    toggle = request.args.get("toggle")
+    return f"{toggle}"
 
 
 

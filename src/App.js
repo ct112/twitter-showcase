@@ -9,7 +9,14 @@ import Tiles from "./Components/Tiles";
 import Bye from "./Components/Bye";
 
 function App() {
-  let [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [searchString, setSearchString] = useState("")
+  const [isUserSearch, setIsUserSearch] = useState(true)
+
+  function passParams(param1, param2){
+      const response = axios.get(`/api?search=${param1}&&toggle=${param2}`).then(response => console.log(response))
+  }
+passParams("bob","user");
 
   // useEffect(() => {
   //   async function getTwitter() {
