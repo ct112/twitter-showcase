@@ -1,6 +1,32 @@
 from flask import Flask, request
-
+import requests
+import base64
 app = Flask(__name__)
+
+app_authentication_data = {
+    "api_key": "kocbYqCzxvYXFMkfqnAekTlIu",
+    "api_secret": "F2K5oMKTTXhbHWrrRabSXVvqTzsRYXESPKxdUvXvaW1ckKqMDK",
+    "bearer_token_URL": "https://api.twitter.com/oauth2/token",
+    "authorization_headers": {
+        "Authorization": "",
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+    },
+    "authorization_data": {
+    "grant_type": "client_credentials"
+    }
+}
+def generate_base64_key():
+    user_authorization = f"{app_authentication_data['api_key']:{app_authentication_data['api_secret']}}".encode("ascii")
+    base64_key = base64.standard_b64encode(user_authorization)
+    base64_key = base64_key.decode("ascii")
+    app_authentication_data["authorization_headers"]["Authorization"] = f"Basic {base64_key}"
+
+def post_request_twitter_API():
+    response_object = requests.post(
+    app_authentication_data["bearer_token_URL"],
+    headers=app_authentication_data["authorization_headers"],
+    data=app_authentication_data["authorization_data"])
+    )
 
 
 @app.route('/')
