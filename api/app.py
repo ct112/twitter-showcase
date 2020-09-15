@@ -2,6 +2,8 @@ from flask import Flask, request
 import requests
 import base64
 import sys
+from tweet_parser.tweet import Tweet
+from tweet_parser.getter_methods.tweet_counts import get_favorite_count
 app = Flask(__name__)
 
 app_authentication_data = {
@@ -17,6 +19,18 @@ app_authentication_data = {
     },
     "bearer_token":""
 }
+search_URLs = {
+    "tweets": "https://api.twitter.com/1.1/search/tweets.json"}
+
+search_header = {
+    "Authorization": f"Bearer {app_authentication_data['bearer_token']}"
+}
+search_parameters = {
+    "q" :"obama",
+    "result_type":"popular",
+    "count": 2
+    }
+
 def generate_base64_key():
     user_authorization = "{}:{}".format(app_authentication_data['api_key'], app_authentication_data['api_secret']).encode("ascii")
     base64_key = base64.standard_b64encode(user_authorization)
@@ -33,7 +47,35 @@ def post_request_twitter_API():
 generate_base64_key()
 post_request_twitter_API()
 print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
-print('This is error output', file=sys.stderr)
+
+
+def get_twitter_data():
+    response = requests.get(search_URLs["tweets"], headers=search_header, params=search_parameters)
+    tweets = response.json()
+    return tweets
+
+
+tweet_dict = get_twitter_data()
+def filter_tweet(tweet_subdata):
+
+    if (tweet_subdata in tweet_items):
+        return True
+    else:
+        return False
+new_dict = {}
+array= []
+tweet_items = ["id", "entities"]
+for tweet in tweet_dict["statuses"]:
+    for key, value in tweet.items():
+        if (key in tweet_items):
+            new_dict[key] = value
+    array.append(new_dict)
+print(f'{array[0]}', file=sys.stderr)
+
+
+
+
+# print(f'{tweet_dict["statuses"][0]["id"]}', file= sys.stderr)
 
 @app.route('/')
 def home():
