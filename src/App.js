@@ -12,10 +12,12 @@ function App() {
   const [data, setData] = useState([]);
   const [searchString, setSearchString] = useState("")
   const [isUserSearch, setIsUserSearch] = useState(true)
+  const [tweetsWalldata, setTweetsWallData] = useState(null)
+  const [randomTweetdata, setRandomTweetData] = useState(null)
 
   function passParams(searchString, searchType, searchReturnCount){
       // console.log(searchString)
-      const response = axios.get(`/api?search=${searchString}`).then(res => console.log(res.data))
+      const response = axios.get(`/api?search=${searchString}&&${searchType}&${searchReturnCount}`).then(res => console.table(res.data))
   }
 
 
@@ -30,7 +32,7 @@ function App() {
 
   function handleSubmit(e) {
       e.preventDefault()
-      passParams(searchString)
+      passParams(searchString,true, 1)
       // don't forget to check search string for white spaces and add + to the search q
 
   }

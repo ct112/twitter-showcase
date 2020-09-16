@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import requests
 import base64
-import sys\
+import sys
 
 from tweet_parser.tweet import Tweet
 from tweet_parser.getter_methods.tweet_counts import get_favorite_count
@@ -24,7 +24,6 @@ search_URLs = {
     "tweets": "https://api.twitter.com/1.1/search/tweets.json"}
 
 
-
 def generate_base64_key():
     user_authorization = "{}:{}".format(app_authentication_data['api_key'], app_authentication_data['api_secret']).encode("ascii")
     base64_key = base64.standard_b64encode(user_authorization)
@@ -40,25 +39,22 @@ def post_request_token():
 
 
 print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
-def set_search_params():
-    search_parameters = {
-        "q": "obama",
-        "result_type": "popular",
-        "count": 2
-    }
+
+def set_search_params(search_string, search_return_count):
+    search_parameters = {}
+    search_parameters["q"] = search_string
+    search_parameters["result_type"] = "popular"
+    search_parameters["count"] = search_return_count
+    return search_parameters
 
 
-search_header = {
-    "Authorization": f"Bearer {app_authentication_data['bearer_token']}"
-}
-search_parameters = {
-    "q": "obama",
-    "result_type": "popular",
-    "count": 2
-}
+def set_search_header():
+    search_header = {}
+    search_header["authorization"]= f"Bearer {app_authentication_data['bearer_token']}"
+    return search_header
 
 
-def get_twitter_data():
+def get_twitter_data(search_header, search_parameters):
     response = requests.get(search_URLs["tweets"], headers=search_header, params=search_parameters)
     tweets = response.json()
     return tweets
@@ -101,11 +97,12 @@ def home():
 @app.route('/api')
 def get():
     search_string = request.args.get("search")
-    search_parameters["q"] = search_string
     search_type = request.args.get("searchType")
-
-
-    return jsonify([{"hi":"hello"}])
+    search_return_count = request.args.get("searchReturnCount")
+    search_params = set_search_params(search_string, search_return_count)
+    search_header = set_search_header()
+    tweets = get_twitter_data(search_header, search_params)
+    return jsonify(tweets)
 
 
 
