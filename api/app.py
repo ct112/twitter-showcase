@@ -1,7 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import requests
 import base64
-import sys
+import sys\
+
 from tweet_parser.tweet import Tweet
 from tweet_parser.getter_methods.tweet_counts import get_favorite_count
 app = Flask(__name__)
@@ -22,14 +23,7 @@ app_authentication_data = {
 search_URLs = {
     "tweets": "https://api.twitter.com/1.1/search/tweets.json"}
 
-search_header = {
-    "Authorization": f"Bearer {app_authentication_data['bearer_token']}"
-}
-search_parameters = {
-    "q" :"obama",
-    "result_type":"popular",
-    "count": 2
-    }
+
 
 def generate_base64_key():
     user_authorization = "{}:{}".format(app_authentication_data['api_key'], app_authentication_data['api_secret']).encode("ascii")
@@ -37,16 +31,31 @@ def generate_base64_key():
     base64_key = base64_key.decode("ascii")
     app_authentication_data["authorization_headers"]["Authorization"] = f"Basic {base64_key}"
 
-def post_request_twitter_API():
+def post_request_token():
     response = requests.post(
     app_authentication_data["bearer_token_URL"],
     headers=app_authentication_data["authorization_headers"],
     data=app_authentication_data["authorization_data"])
     app_authentication_data["bearer_token"] = response.json()["access_token"]
 
-generate_base64_key()
-post_request_twitter_API()
+
 print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
+def set_search_params():
+    search_parameters = {
+        "q": "obama",
+        "result_type": "popular",
+        "count": 2
+    }
+
+
+search_header = {
+    "Authorization": f"Bearer {app_authentication_data['bearer_token']}"
+}
+search_parameters = {
+    "q": "obama",
+    "result_type": "popular",
+    "count": 2
+}
 
 
 def get_twitter_data():
@@ -54,23 +63,31 @@ def get_twitter_data():
     tweets = response.json()
     return tweets
 
+def request_Authorization():
+    generate_base64_key()
+    post_request_token()
 
-tweet_dict = get_twitter_data()
-def filter_tweet(tweet_subdata):
+request_Authorization()
 
-    if (tweet_subdata in tweet_items):
-        return True
-    else:
-        return False
-new_dict = {}
-array= []
-tweet_items = ["id", "entities"]
-for tweet in tweet_dict["statuses"]:
-    for key, value in tweet.items():
-        if (key in tweet_items):
-            new_dict[key] = value
-    array.append(new_dict)
-print(f'{array[0]}', file=sys.stderr)
+
+# def filter_tweet(tweet_subdata):
+#
+#     if (tweet_subdata in tweet_items):
+#         return True
+#     else:
+#         return False
+
+# tweet_dict = get_twitter_data()
+# new_dict = {}
+# array= []
+# tweet_items = ["id","text","user","entities","urls"]
+#
+# for tweet in tweet_dict["statuses"]:
+#     for key, value in tweet.items():
+#         if (key in tweet_items):
+#             new_dict[key] = value
+#     array.append(new_dict)
+# print(f'{array[0]}', file=sys.stderr)
 
 
 
@@ -83,9 +100,12 @@ def home():
 
 @app.route('/api')
 def get():
-    language = request.args.get("search")
-    toggle = request.args.get("toggle")
-    return f"{toggle}"
+    search_string = request.args.get("search")
+    search_parameters["q"] = search_string
+    search_type = request.args.get("searchType")
+
+
+    return jsonify([{"hi":"hello"}])
 
 
 

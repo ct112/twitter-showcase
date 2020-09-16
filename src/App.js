@@ -13,10 +13,11 @@ function App() {
   const [searchString, setSearchString] = useState("")
   const [isUserSearch, setIsUserSearch] = useState(true)
 
-  function passParams(param1, param2){
-      const response = axios.get(`/api?search=${param1}&&toggle=${param2}`).then(response => console.log(response))
+  function passParams(searchString, searchType, searchReturnCount){
+      // console.log(searchString)
+      const response = axios.get(`/api?search=${searchString}`).then(res => console.log(res.data))
   }
-passParams("bob","user");
+
 
   // useEffect(() => {
   //   async function getTwitter() {
@@ -28,7 +29,16 @@ passParams("bob","user");
   // }, [data]);
 
   function handleSubmit(e) {
-    return "";
+      e.preventDefault()
+      passParams(searchString)
+      // don't forget to check search string for white spaces and add + to the search q
+
+  }
+
+  function handleChange(event) {
+      let {value} = event.target
+      setSearchString(value)
+
   }
 
   return (
@@ -38,7 +48,7 @@ passParams("bob","user");
       <Route path="/" component={App}>
         <Switch>
           <Route path="/test">
-            <Searchbar handleSubmit={handleSubmit} />
+            <Searchbar handleSubmit={handleSubmit} handleChange={handleChange} />
             <Tiles />
           </Route>
           <Route path="/bye">
