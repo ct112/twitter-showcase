@@ -45,17 +45,13 @@ print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
 
 
 def set_search_params(search_string, search_return_count):
-    search_parameters = {}
-    search_parameters["q"] = search_string
-    search_parameters["result_type"] = "popular"
-    search_parameters["count"] = search_return_count
+    search_parameters = {"q": search_string, "result_type": "popular", "count": search_return_count}
     # print(search_parameters, file=sys.stderr)
     return search_parameters
 
 
 def set_search_header():
-    search_header = {}
-    search_header["authorization"] = f"Bearer {app_authentication_data['bearer_token']}"
+    search_header = {"authorization": f"Bearer {app_authentication_data['bearer_token']}"}
     return search_header
 
 
@@ -70,10 +66,20 @@ def request_authorization_twitter_api():
     post_request_token()
 
 
-# print(f'{tweet_dict["statuses"][0]["id"]}', file= sys.stderr)
-
 def parse_tweets(tweets):
-    return parsed_tweets
+    new_dict = {}
+    array = []
+    tweet_items = ["id", "favorite_count", "created_at", "text"]
+
+    for tweet in tweets["statuses"]:
+        for key, value in tweet.items():
+            if key in tweet_items:
+                new_dict[key] = value
+
+        array.append(new_dict)
+        new_dict ={}
+
+    return array
 
 
 request_authorization_twitter_api()
@@ -98,6 +104,7 @@ def get():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 # def filter_tweet(tweet_subdata):
 #
 #     if (tweet_subdata in tweet_items):
@@ -108,7 +115,7 @@ if __name__ == '__main__':
 # tweet_dict = get_twitter_data()
 # new_dict = {}
 # array= []
-# tweet_items = ["id","text","user","entities","urls"]
+# tweet_items = ["user","entities"]
 #
 # for tweet in tweet_dict["statuses"]:
 #     for key, value in tweet.items():

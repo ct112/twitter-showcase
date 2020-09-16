@@ -10,16 +10,19 @@ import Bye from "./Components/Bye";
 
 function App() {
   const [data, setData] = useState([]);
-  const [searchString, setSearchString] = useState("")
-  const [isUserSearch, setIsUserSearch] = useState(true)
-  const [tweetsWalldata, setTweetsWallData] = useState(null)
-  const [randomTweetdata, setRandomTweetData] = useState(null)
+  const [searchString, setSearchString] = useState("");
+  const [isUserSearch, setIsUserSearch] = useState(true);
+  const [tweetsWalldata, setTweetsWallData] = useState([]);
+  const [randomTweetdata, setRandomTweetData] = useState(null);
 
-  function passParams(searchString, searchType, searchReturnCount){
-      // console.log(searchString)
-      const response = axios.get(`/api?search=${searchString}&&type=${searchType}&&count=${searchReturnCount}`).then(res => console.table(res.data))
+  async function getTweets(searchString, searchType, searchReturnCount) {
+    const response = await axios
+      .get(
+        `/api?search=${searchString}&&type=${searchType}&&count=${searchReturnCount}`
+      )
+      .then((res) => setTweetsWallData(res.data))
+
   }
-
 
   // useEffect(() => {
   //   async function getTwitter() {
@@ -31,16 +34,14 @@ function App() {
   // }, [data]);
 
   function handleSubmit(e) {
-      e.preventDefault()
-      passParams(searchString,true, 1)
-      // don't forget to check search string for white spaces and add + to the search q
-
+    e.preventDefault();
+    getTweets(searchString, true, 12);
+    // don't forget to check search string for white spaces and add + to the search q
   }
 
   function handleChange(event) {
-      let {value} = event.target
-      setSearchString(value)
-
+    let { value } = event.target;
+    setSearchString(value);
   }
 
   return (
@@ -50,8 +51,11 @@ function App() {
       <Route path="/" component={App}>
         <Switch>
           <Route path="/test">
-            <Searchbar handleSubmit={handleSubmit} handleChange={handleChange} />
-            <Tiles />
+            <Searchbar
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+            />
+            <Tiles tweetData={tweetsWalldata}/>
           </Route>
           <Route path="/bye">
             <Bye />
