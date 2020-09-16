@@ -5,6 +5,7 @@ import sys
 
 from tweet_parser.tweet import Tweet
 from tweet_parser.getter_methods.tweet_counts import get_favorite_count
+
 app = Flask(__name__)
 
 app_authentication_data = {
@@ -16,29 +17,32 @@ app_authentication_data = {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
     },
     "authorization_data": {
-    "grant_type": "client_credentials"
+        "grant_type": "client_credentials"
     },
-    "bearer_token":""
+    "bearer_token": ""
 }
 search_URLs = {
     "tweets": "https://api.twitter.com/1.1/search/tweets.json"}
 
 
 def generate_base64_key():
-    user_authorization = "{}:{}".format(app_authentication_data['api_key'], app_authentication_data['api_secret']).encode("ascii")
+    user_authorization = "{}:{}".format(app_authentication_data['api_key'],
+                                        app_authentication_data['api_secret']).encode("ascii")
     base64_key = base64.standard_b64encode(user_authorization)
     base64_key = base64_key.decode("ascii")
     app_authentication_data["authorization_headers"]["Authorization"] = f"Basic {base64_key}"
 
+
 def post_request_token():
     response = requests.post(
-    app_authentication_data["bearer_token_URL"],
-    headers=app_authentication_data["authorization_headers"],
-    data=app_authentication_data["authorization_data"])
+        app_authentication_data["bearer_token_URL"],
+        headers=app_authentication_data["authorization_headers"],
+        data=app_authentication_data["authorization_data"])
     app_authentication_data["bearer_token"] = response.json()["access_token"]
 
 
 print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
+
 
 def set_search_params(search_string, search_return_count):
     search_parameters = {}
@@ -51,7 +55,7 @@ def set_search_params(search_string, search_return_count):
 
 def set_search_header():
     search_header = {}
-    search_header["authorization"]= f"Bearer {app_authentication_data['bearer_token']}"
+    search_header["authorization"] = f"Bearer {app_authentication_data['bearer_token']}"
     return search_header
 
 
@@ -60,29 +64,36 @@ def get_twitter_data(search_header, search_parameters):
     tweets = response.json()
     return tweets
 
-def request_Authorization():
+
+def request_authorization_twitter_api():
     generate_base64_key()
     post_request_token()
 
-request_Authorization()
 
 # print(f'{tweet_dict["statuses"][0]["id"]}', file= sys.stderr)
+
+def parse_tweets(tweets):
+    return parsed_tweets
+
+
+request_authorization_twitter_api()
+
 
 @app.route('/')
 def home():
     return "home"
+
 
 @app.route('/api')
 def get():
     search_string = request.args.get("search")
     search_type = request.args.get("type")
     search_return_count = request.args.get("count")
-    print(search_return_count, file=sys.stderr)
     search_params = set_search_params(search_string, search_return_count)
     search_header = set_search_header()
     tweets = get_twitter_data(search_header, search_params)
-    return jsonify(tweets)
-
+    parsed_tweets = parse_tweets(tweets)
+    return jsonify(parsed_tweets)
 
 
 if __name__ == '__main__':
@@ -105,5 +116,3 @@ if __name__ == '__main__':
 #             new_dict[key] = value
 #     array.append(new_dict)
 # print(f'{array[0]}', file=sys.stderr)
-
-
