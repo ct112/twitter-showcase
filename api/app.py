@@ -45,6 +45,7 @@ def set_search_params(search_string, search_return_count):
     search_parameters["q"] = search_string
     search_parameters["result_type"] = "popular"
     search_parameters["count"] = search_return_count
+    # print(search_parameters, file=sys.stderr)
     return search_parameters
 
 
@@ -65,7 +66,27 @@ def request_Authorization():
 
 request_Authorization()
 
+# print(f'{tweet_dict["statuses"][0]["id"]}', file= sys.stderr)
 
+@app.route('/')
+def home():
+    return "home"
+
+@app.route('/api')
+def get():
+    search_string = request.args.get("search")
+    search_type = request.args.get("type")
+    search_return_count = request.args.get("count")
+    print(search_return_count, file=sys.stderr)
+    search_params = set_search_params(search_string, search_return_count)
+    search_header = set_search_header()
+    tweets = get_twitter_data(search_header, search_params)
+    return jsonify(tweets)
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
 # def filter_tweet(tweet_subdata):
 #
 #     if (tweet_subdata in tweet_items):
@@ -86,25 +107,3 @@ request_Authorization()
 # print(f'{array[0]}', file=sys.stderr)
 
 
-
-
-# print(f'{tweet_dict["statuses"][0]["id"]}', file= sys.stderr)
-
-@app.route('/')
-def home():
-    return "home"
-
-@app.route('/api')
-def get():
-    search_string = request.args.get("search")
-    search_type = request.args.get("searchType")
-    search_return_count = request.args.get("searchReturnCount")
-    search_params = set_search_params(search_string, search_return_count)
-    search_header = set_search_header()
-    tweets = get_twitter_data(search_header, search_params)
-    return jsonify(tweets)
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

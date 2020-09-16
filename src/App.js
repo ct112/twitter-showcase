@@ -17,7 +17,7 @@ function App() {
 
   function passParams(searchString, searchType, searchReturnCount){
       // console.log(searchString)
-      const response = axios.get(`/api?search=${searchString}&&${searchType}&${searchReturnCount}`).then(res => console.table(res.data))
+      const response = axios.get(`/api?search=${searchString}&&type=${searchType}&&count=${searchReturnCount}`).then(res => console.table(res.data))
   }
 
 
