@@ -35,13 +35,18 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    getTweets(searchString, true, 12);
+    getTweets(searchString, true, 15);
     // don't forget to check search string for white spaces and add + to the search q
   }
 
   function handleChange(event) {
     let { value } = event.target;
     setSearchString(value);
+  }
+
+  function handleClick(event){
+    const searchType = event.currentTarget.dataset.type
+    console.log(searchType)
   }
 
   return (
@@ -54,6 +59,7 @@ function App() {
             <Searchbar
               handleSubmit={handleSubmit}
               handleChange={handleChange}
+              handleClick={handleClick}
             />
             <Tiles tweetData={tweetsWalldata}/>
           </Route>

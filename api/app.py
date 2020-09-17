@@ -3,9 +3,6 @@ import requests
 import base64
 import sys
 
-from tweet_parser.tweet import Tweet
-from tweet_parser.getter_methods.tweet_counts import get_favorite_count
-
 app = Flask(__name__)
 
 app_authentication_data = {
@@ -67,19 +64,19 @@ def request_authorization_twitter_api():
 
 
 def parse_tweets(tweets):
-    new_dict = {}
-    array = []
-    tweet_items = ["id", "favorite_count", "created_at", "text"]
+    filtered_tweet = {}
+    tweets_array = []
+    tweet_filter = ["id", "favorite_count", "created_at", "text"]
 
     for tweet in tweets["statuses"]:
         for key, value in tweet.items():
-            if key in tweet_items:
-                new_dict[key] = value
+            if key in tweet_filter:
+                filtered_tweet[key] = value
 
-        array.append(new_dict)
-        new_dict ={}
+        tweets_array.append(filtered_tweet)
+        filtered_tweet = {}
 
-    return array
+    return tweets_array
 
 
 request_authorization_twitter_api()
