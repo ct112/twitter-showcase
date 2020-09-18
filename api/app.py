@@ -19,7 +19,10 @@ app_authentication_data = {
     "bearer_token": ""
 }
 search_URLs = {
-    "tweets": "https://api.twitter.com/1.1/search/tweets.json"}
+    "base": "https://api.twitter.com/1.1",
+    "content": "search/tweets.json",
+    "users": "users/search.json"
+}
 
 
 def generate_base64_key():
@@ -41,9 +44,14 @@ def post_request_token():
 print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
 
 
-def set_search_params(search_string, search_return_count):
+def set_search_params_content(search_string, search_return_count):
     search_parameters = {"q": search_string, "result_type": "popular", "count": search_return_count}
     # print(search_parameters, file=sys.stderr)
+    return search_parameters
+
+
+def set_search_params_user(search_string):
+    search_parameters = {{"q": search_string, "page": "1", "count": 15}}
     return search_parameters
 
 
@@ -52,8 +60,10 @@ def set_search_header():
     return search_header
 
 
-def get_twitter_data(search_header, search_parameters):
-    response = requests.get(search_URLs["tweets"], headers=search_header, params=search_parameters)
+def get_twitter_data(search_header, search_parameters, search_type):
+    url_extension = search_URLs["users"] if search_type == "users" else search_URLs["content"]
+    response = requests.get("https://api.twitter.com/1.1/search/tweets.json", headers=search_header,
+                            params=search_parameters)
     tweets = response.json()
     return tweets
 
@@ -82,9 +92,9 @@ def parse_tweets(tweets):
 request_authorization_twitter_api()
 
 
-@app.route('/')
-def home():
-    return "home"
+# @app.route('/')
+# def home():
+#     return "home"
 
 
 @app.route('/api')
@@ -92,9 +102,11 @@ def get():
     search_string = request.args.get("search")
     search_type = request.args.get("type")
     search_return_count = request.args.get("count")
-    search_params = set_search_params(search_string, search_return_count)
+    search_params = set_search_params_user(search_string
+                                           ) if search_type == "user" else set_search_params_content(
+        search_string, search_return_count)
     search_header = set_search_header()
-    tweets = get_twitter_data(search_header, search_params)
+    tweets = get_twitter_data(search_header, search_params, search_type)
     parsed_tweets = parse_tweets(tweets)
     return jsonify(parsed_tweets)
 

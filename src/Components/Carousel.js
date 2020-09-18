@@ -4,6 +4,7 @@ import 'moment-timezone';
 
 function Carousel(){
     return (
+
         <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
@@ -12,13 +13,19 @@ function Carousel(){
             </ol>
             <div className="carousel-inner">
                 <div className="carousel-item active">
-                    <img className="d-block w-100" src="..." alt="First slide"/>
+                    <img
+                        className="d-block w-100"
+                        src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE4MDAzNDEwNzg5ODI4MTEw/barack-obama-12782369-1-402.jpg" alt="First slide"/>
                 </div>
                 <div className="carousel-item">
-                    <img className="d-block w-100" src="..." alt="Second slide"/>
+                    <img
+                        className="d-block w-100"
+                        src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE4MDAzNDEwNzg5ODI4MTEw/barack-obama-12782369-1-402.jpg" alt="Second slide"/>
                 </div>
                 <div className="carousel-item">
-                    <img className="d-block w-100" src="..." alt="Third slide"/>
+                    <img
+                        className="d-block w-100"
+                        src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE4MDAzNDEwNzg5ODI4MTEw/barack-obama-12782369-1-402.jpg" alt="Third slide"/>
                 </div>
             </div>
             <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

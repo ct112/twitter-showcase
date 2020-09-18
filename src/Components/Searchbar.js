@@ -19,10 +19,10 @@ function Searchbar({ handleChange, handleClick, }) {
           // ref={clearsSearchRef}
         />
 
-        <button className="btn btn-outline-secondary" data-type="users/search.json" data-count="15" onClick={event => handleClick(event)}  type="submit">
+        <button className="btn btn-outline-secondary" data-type="users" data-count="15" onClick={event => handleClick(event)}  type="submit">
           User
         </button>
-        <button className="btn btn-outline-secondary" data-type="search/tweets.json" data-count="15" type="submit">
+        <button className="btn btn-outline-secondary" data-type="search" data-count="15" type="submit">
           Content
         </button>
       </div>

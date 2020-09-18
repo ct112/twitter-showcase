@@ -7,6 +7,7 @@ import axios from "axios";
 import Searchbar from "./Components/Searchbar";
 import Tiles from "./Components/Tiles";
 import Bye from "./Components/Bye";
+import Carousel from "./Components/Carousel";
 
 function App() {
   const [data, setData] = useState([]);
@@ -47,8 +48,8 @@ function App() {
 
   function handleClick(event){
     const searchType = event.currentTarget.dataset.type
-    const tweetsReturnedCount = event.currentTarget.dataset.type
-    getTweets(searchString, "user", 15);
+    const tweetsReturnedCount = event.currentTarget.dataset.count
+    getTweets(searchString, searchType, tweetsReturnedCount);
     // clearSearchRef.current.value = ""
 
   }
@@ -59,7 +60,7 @@ function App() {
       <p>{data}</p>
       <Route path="/" component={App}>
         <Switch>
-          <Route path="/test">
+          <Route path="/test">a
             <Searchbar
               // handleSubmit={handleSubmit}
               handleChange={handleChange}
@@ -69,7 +70,7 @@ function App() {
             <Tiles tweetData={tweetsWalldata}/>
           </Route>
           <Route path="/bye">
-            <Bye />
+            <Carousel/>
           </Route>
         </Switch>
       </Route>
