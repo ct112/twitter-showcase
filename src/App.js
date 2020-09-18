@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 //import routes from "./routes";
 import Navbar from "./Components/Navbar";
@@ -11,9 +11,10 @@ import Bye from "./Components/Bye";
 function App() {
   const [data, setData] = useState([]);
   const [searchString, setSearchString] = useState("");
-  const [isUserSearch, setIsUserSearch] = useState(true);
+  const [searchType, setSearchType] = useState(null);
   const [tweetsWalldata, setTweetsWallData] = useState([]);
   const [randomTweetdata, setRandomTweetData] = useState(null);
+  // const clearSearchRef = useRef("")
 
   async function getTweets(searchString, searchType, searchReturnCount) {
     const response = await axios
@@ -33,11 +34,11 @@ function App() {
   //   }
   // }, [data]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    getTweets(searchString, true, 15);
-    // don't forget to check search string for white spaces and add + to the search q
-  }
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //
+  //   // don't forget to check search string for white spaces and add + to the search q
+  // }
 
   function handleChange(event) {
     let { value } = event.target;
@@ -46,7 +47,10 @@ function App() {
 
   function handleClick(event){
     const searchType = event.currentTarget.dataset.type
-    console.log(searchType)
+    const tweetsReturnedCount = event.currentTarget.dataset.type
+    getTweets(searchString, "user", 15);
+    // clearSearchRef.current.value = ""
+
   }
 
   return (
@@ -57,9 +61,10 @@ function App() {
         <Switch>
           <Route path="/test">
             <Searchbar
-              handleSubmit={handleSubmit}
+              // handleSubmit={handleSubmit}
               handleChange={handleChange}
               handleClick={handleClick}
+              // clearSearchRef={clearSearchRef}
             />
             <Tiles tweetData={tweetsWalldata}/>
           </Route>
