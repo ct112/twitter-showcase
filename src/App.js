@@ -46,7 +46,7 @@ function App() {
     setSearchString(value);
   }
 
-  function handleClick(event){
+  function handleClick(event,...args){
     const searchType = event.currentTarget.dataset.type
     const tweetsReturnedCount = event.currentTarget.dataset.count
     getTweets(searchString, searchType, tweetsReturnedCount);
