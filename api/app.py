@@ -73,20 +73,20 @@ def request_authorization_twitter_api():
     post_request_token()
 
 
-def parse_tweets(tweets):
-    filtered_tweet = {}
-    tweets_array = []
-    tweet_filter = ["id", "favorite_count", "created_at", "text"]
-
-    for tweet in tweets["statuses"]:
-        for key, value in tweet.items():
-            if key in tweet_filter:
-                filtered_tweet[key] = value
-
-        tweets_array.append(filtered_tweet)
-        filtered_tweet = {}
-
-    return tweets_array
+# def parse_tweets(tweets):
+#     filtered_tweet = {}
+#     tweets_array = []
+#     tweet_filter = ["id", "favorite_count", "created_at", "text"]
+#
+#     for tweet in tweets["statuses"]:
+#         for key, value in tweet.items():
+#             if key in tweet_filter:
+#                 filtered_tweet[key] = value
+#
+#         tweets_array.append(filtered_tweet)
+#         filtered_tweet = {}
+#
+#     return tweets_array
 
 
 request_authorization_twitter_api()
@@ -98,8 +98,7 @@ def content():
     search_params = set_search_params_content(search_string)
     search_header = set_search_header()
     tweets = get_twitter_data(search_header, search_params, "content")
-    parsed_tweets = parse_tweets(tweets)
-    return jsonify(parsed_tweets)
+    return jsonify(tweets)
 
 
 @app.route('/api/user')
@@ -108,7 +107,7 @@ def user():
     search_params = set_search_params_user(search_string)
     search_header = set_search_header()
     tweets = get_twitter_data(search_header, search_params, "user")
-    # parsed_tweets = parse_tweets(tweets)
+    tweets = {"statuses": tweets}
     return jsonify(tweets)
 
 

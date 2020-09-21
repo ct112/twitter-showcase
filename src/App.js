@@ -22,7 +22,7 @@ function App() {
       .get(
         `/api/${searchType}?search=${searchString}`
       )
-      .then((res) => setTweetsWallData(res.data))
+      .then((res) => setTweetsWallData(res.data.statuses))
 
 
   }
