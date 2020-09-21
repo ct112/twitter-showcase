@@ -19,11 +19,11 @@ function Searchbar({ handleChange, handleClick, }) {
           // ref={clearsSearchRef}
         />
 
-        <button className="btn btn-outline-secondary" data-type="users" data-count="15" onClick={event => handleClick(event)}  type="submit">
-          User
-        </button>
-        <button className="btn btn-outline-secondary" data-type="search" data-count="15" type="submit">
+        <button className="btn btn-outline-secondary" data-type="content"  onClick={event => handleClick(event)}  type="submit">
           Content
+        </button>
+        <button className="btn btn-outline-secondary" data-type="user" onClick={event => handleClick(event)}  type="submit">
+          User
         </button>
       </div>
     </form>

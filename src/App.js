@@ -17,12 +17,13 @@ function App() {
   const [randomTweetdata, setRandomTweetData] = useState(null);
   // const clearSearchRef = useRef("")
 
-  async function getTweets(searchString, searchType, searchReturnCount) {
+  async function getTweets(searchString, searchType) {
     const response = await axios
       .get(
-        `/api?search=${searchString}&&type=${searchType}&&count=${searchReturnCount}`
+        `/api/${searchType}?search=${searchString}`
       )
       .then((res) => setTweetsWallData(res.data))
+
 
   }
 
@@ -46,10 +47,10 @@ function App() {
     setSearchString(value);
   }
 
-  function handleClick(event,...args){
+  function handleClick(event){
     const searchType = event.currentTarget.dataset.type
-    const tweetsReturnedCount = event.currentTarget.dataset.count
-    getTweets(searchString, searchType, tweetsReturnedCount);
+    // const tweetsReturnedCount = event.currentTarget.dataset.count
+    getTweets(searchString, searchType);
     // clearSearchRef.current.value = ""
 
   }

@@ -44,14 +44,14 @@ def post_request_token():
 print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
 
 
-def set_search_params_content(search_string, search_return_count):
-    search_parameters = {"q": search_string, "result_type": "popular", "count": search_return_count}
+def set_search_params_content(search_string):
+    search_parameters = {"q": search_string, "result_type": "popular", "count": 15}
     # print(search_parameters, file=sys.stderr)
     return search_parameters
 
 
 def set_search_params_user(search_string):
-    search_parameters = {{"q": search_string, "page": "1", "count": 15}}
+    search_parameters = {"q": search_string}
     return search_parameters
 
 
@@ -61,8 +61,8 @@ def set_search_header():
 
 
 def get_twitter_data(search_header, search_parameters, search_type):
-    url_extension = search_URLs["users"] if search_type == "users" else search_URLs["content"]
-    response = requests.get("https://api.twitter.com/1.1/search/tweets.json", headers=search_header,
+    url_extension = search_URLs["users"] if search_type == "user" else search_URLs["content"]
+    response = requests.get(f"https://api.twitter.com/1.1/{url_extension}", headers=search_header,
                             params=search_parameters)
     tweets = response.json()
     return tweets
@@ -97,16 +97,12 @@ request_authorization_twitter_api()
 #     return "home"
 
 
-@app.route('/api')
-def get():
+@app.route('/api/content')
+def content():
     search_string = request.args.get("search")
-    search_type = request.args.get("type")
-    search_return_count = request.args.get("count")
-    search_params = set_search_params_user(search_string
-                                           ) if search_type == "user" else set_search_params_content(
-        search_string, search_return_count)
+    search_params = set_search_params_content(search_string)
     search_header = set_search_header()
-    tweets = get_twitter_data(search_header, search_params, search_type)
+    tweets = get_twitter_data(search_header, search_params, "content")
     parsed_tweets = parse_tweets(tweets)
     return jsonify(parsed_tweets)
 

@@ -2,18 +2,18 @@ import React from "react";
 import Masonry from 'react-masonry-css'
 import "../Tiles.css"
 import Moment from 'react-moment';
-import 'moment-timezone';
 import Cards from "./Cards"
 
 
 function Tiles(props) {
+    console.table(props.tweetData)
 
 const tweets = props.tweetData.map((item, index) => {
     return (
-        <div className="card" style={{width: 300}}>
+        <div className="card" style={{width: 300}} key={item.id}>
             <div className="card-body">
                 <h5 className="card-title">{item.id}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">{item.created_at}</h6>
+                <h6>{item.created_at}</h6>
                 <p className="card-text">{item.text}</p>
             </div>
             <div className="card-footer text-muted">

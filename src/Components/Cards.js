@@ -3,6 +3,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 function Cards(){
+
     return(
         <div className="card" style="width: 300px;">
             <img src="images/sample.svg" className="card-img-top" alt="..."/>
