@@ -21,7 +21,7 @@ app_authentication_data = {
 search_URLs = {
     "base": "https://api.twitter.com/1.1",
     "content": "search/tweets.json",
-    "users": "users/search.json"
+    "user": "statuses/user_timeline.json"
 }
 
 
@@ -51,7 +51,7 @@ def set_search_params_content(search_string):
 
 
 def set_search_params_user(search_string):
-    search_parameters = {"q": search_string}
+    search_parameters = {"screen_name": f"@{search_string}"}
     return search_parameters
 
 
@@ -61,7 +61,7 @@ def set_search_header():
 
 
 def get_twitter_data(search_header, search_parameters, search_type):
-    url_extension = search_URLs["users"] if search_type == "user" else search_URLs["content"]
+    url_extension = search_URLs["user"] if search_type == "user" else search_URLs["content"]
     response = requests.get(f"https://api.twitter.com/1.1/{url_extension}", headers=search_header,
                             params=search_parameters)
     tweets = response.json()
@@ -105,6 +105,16 @@ def content():
     tweets = get_twitter_data(search_header, search_params, "content")
     parsed_tweets = parse_tweets(tweets)
     return jsonify(parsed_tweets)
+
+@app.route('/api/user')
+def user():
+    search_string = request.args.get("search")
+    search_params = set_search_params_user(search_string)
+    search_header = set_search_header()
+    tweets = get_twitter_data(search_header, search_params, "user")
+    # parsed_tweets = parse_tweets(tweets)
+    return jsonify(tweets)
+
 
 
 if __name__ == '__main__':
