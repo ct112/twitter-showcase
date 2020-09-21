@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Moment from "react-moment";
 import "moment-timezone";
 import obama from "./obama.jpg";
@@ -6,6 +6,9 @@ import Coverflow from "react-coverflow";
 import { StyleRoot } from "radium";
 
 function Carousel() {
+    const [twitterCelebs, setTwitterCelebs] = useState([])
+    // setTwitterCelebs([{name:"Barack Obama",
+    // src:}])
   function displayAlert() {
     alert("I was clicked");
   }

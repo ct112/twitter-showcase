@@ -51,7 +51,7 @@ def set_search_params_content(search_string):
 
 
 def set_search_params_user(search_string):
-    search_parameters = {"screen_name": f"@{search_string}"}
+    search_parameters = {"screen_name": f"@{search_string}", "lang": "en"}
     return search_parameters
 
 
@@ -92,11 +92,6 @@ def parse_tweets(tweets):
 request_authorization_twitter_api()
 
 
-# @app.route('/')
-# def home():
-#     return "home"
-
-
 @app.route('/api/content')
 def content():
     search_string = request.args.get("search")
@@ -106,6 +101,7 @@ def content():
     parsed_tweets = parse_tweets(tweets)
     return jsonify(parsed_tweets)
 
+
 @app.route('/api/user')
 def user():
     search_string = request.args.get("search")
@@ -114,7 +110,6 @@ def user():
     tweets = get_twitter_data(search_header, search_params, "user")
     # parsed_tweets = parse_tweets(tweets)
     return jsonify(tweets)
-
 
 
 if __name__ == '__main__':
