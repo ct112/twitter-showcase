@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import requests
 import base64
 import sys
+from random import randint
 
 app = Flask(__name__)
 
@@ -45,7 +46,7 @@ print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
 
 
 def set_search_params_content(search_string):
-    search_parameters = {"q": search_string, "result_type": "popular", "count": 15, "tweet_mode":"extended"}
+    search_parameters = {"q": search_string, "result_type": "popular", "count": 15, "tweet_mode": "extended"}
     # print(search_parameters, file=sys.stderr)
     return search_parameters
 
@@ -76,7 +77,7 @@ def request_authorization_twitter_api():
 request_authorization_twitter_api()
 
 
-@app.route('/api/content')
+@app.route('/api/wall/content')
 def content():
     search_string = request.args.get("search")
     search_params = set_search_params_content(search_string)
@@ -85,7 +86,7 @@ def content():
     return jsonify(tweets)
 
 
-@app.route('/api/user')
+@app.route('/api/wall/user', endpoint='user')
 def user():
     search_string = request.args.get("search")
     search_params = set_search_params_user(search_string)
@@ -93,6 +94,18 @@ def user():
     tweets = get_twitter_data(search_header, search_params, "user")
     tweets = {"statuses": tweets}
     return jsonify(tweets)
+
+
+@app.route('/api/randomtweet/user')
+def random():
+    search_string = request.args.get("search")
+    search_params = set_search_params_user(search_string)
+    search_header = set_search_header()
+    tweets = get_twitter_data(search_header, search_params, "user")
+    tweets = {"statuses": tweets}
+    random_number = randint(0, 14)
+    tweet = tweets["statuses"][random_number]
+    return jsonify(tweet)
 
 
 if __name__ == '__main__':

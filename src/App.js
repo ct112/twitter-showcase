@@ -13,15 +13,22 @@ import Quote from "./Components/Quote";
 function App() {
   const [data, setData] = useState([]);
   const [searchString, setSearchString] = useState("");
-  const [tweetsData, setTweetsData] = useState([]);
-  const [tweetsWallData, setTweetsWallData]= useState([])
+  const [tweetData, setTweetData] = useState([]);
+  const [tweetsWallData, setTweetsWallData] = useState([]);
   // const clearSearchRef = useRef("")
 
   const twitter = {
     getWallData: async function (searchString, searchType) {
       await axios
-        .get(`/api/${searchType}?search=${searchString}`)
-        .then((res) => setTweetsWallData(res.data.statuses));
+        .get(`/api/wall/${searchType}?search=${searchString}`)
+        .then((res) => setTweetsWallData(res.data.statuses))
+        .catch((error) => console.log(error));
+    },
+    getSingleTweet: async function (searchString, searchType) {
+      await axios
+        .get(`/api/randomtweet/${searchType}?search=${searchString}`)
+        .then((res) => setTweetData(res.data))
+        .catch((error) => console.log(error));
     },
   };
 
@@ -41,19 +48,24 @@ function App() {
   // }, [data]);
 
   function handleChange(event) {
-    let { value } = event.target;
+    const { value } = event.target;
     setSearchString(value);
   }
 
-  function handleClick(event, ...arg) {
+  function handleClickButton(event, ...arg) {
     // const [searchInput] = [...arg];
     // if (searchInput) {
     //   getTweets(searchInput, "user");
     // } else {
-      const searchType = event.currentTarget.dataset.type;
-      twitter.getWallData(searchString, searchType)
+    const searchType = event.currentTarget.dataset.type;
+    twitter.getWallData(searchString, searchType);
 
     // clearSearchRef.current.value = ""
+  }
+
+  function handleClickImage(event) {
+    const searchName = event.target.id;
+    twitter.getSingleTweet(searchName, "user");
   }
 
   return (
@@ -66,14 +78,14 @@ function App() {
             <Searchbar
               // handleSubmit={handleSubmit}
               handleChange={handleChange}
-              handleClick={handleClick}
+              handleClick={handleClickButton}
               // clearSearchRef={clearSearchRef}
             />
             <Tiles tweetData={tweetsWallData} />
           </Route>
           <Route path="/bye">
-            <Carousel handleClick={handleClick} />
-            <Quote tweetData={tweetsData} />
+            <Carousel handleClickImage={handleClickImage} />
+            <Quote tweetData={tweetData} />
           </Route>
         </Switch>
       </Route>
