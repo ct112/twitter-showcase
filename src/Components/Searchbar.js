@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
 
 function Searchbar({ handleChange, handleClick }) {
@@ -10,23 +10,27 @@ function Searchbar({ handleChange, handleClick }) {
         aria-label="Search"
         aria-describedby="basic-addon2"
       />
-      <InputGroup.Append>
-        <Button
-          variant="outline-secondary"
-          data-type="user"
-          onClick={(event) => handleClick(event)}
-        >
-          Content
-        </Button>
-        <Button
-          variant="outline-secondary"
-          data-type="user"
-          onClick={(event) => handleClick(event)}
-        >
-          User
-        </Button>
-      </InputGroup.Append>
+      {["content", "user"].map((searchType) => {
+        return (
+          <InputGroup.Append>
+            <Button
+              variant="outline-secondary"
+              data-type={searchType}
+              onClick={(event) => handleClick(event)}
+            >
+              {searchType}
+            </Button>
+          </InputGroup.Append>
+        );
+      })}
     </InputGroup>
   );
 }
 export default Searchbar;
+// <Button
+//          variant="outline-secondary"
+//          data-type="user"
+//          onClick={(event) => handleClick(event)}
+//        >
+//          User
+//        </Button>
