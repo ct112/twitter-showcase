@@ -10,7 +10,7 @@ import Coverflow from "react-coverflow";
 import { StyleRoot } from "radium";
 import Quote from "./Quote";
 
-function Carousel({ handleClickImage }) {
+function Carousel({ handleClickImage, tweet }) {
   const twitterCelebs = [
     { name: "Barack Obama", src: obama, twitterHandle: "BarackObama" },
     { name: "Micheal Jordan", src: jordan, twitterHandle: "Jumpman23" },
@@ -52,6 +52,7 @@ function Carousel({ handleClickImage }) {
       >
         {images}
       </Coverflow>
+        <Quote tweet={tweet}/>
     </StyleRoot>
   );
 }

@@ -14,14 +14,14 @@ function App() {
   const [data, setData] = useState([]);
   const [searchString, setSearchString] = useState("");
   const [tweetData, setTweetData] = useState([]);
-  const [tweetsWallData, setTweetsWallData] = useState([]);
+  const [wallTweets, setWallTweets] = useState([]);
   // const clearSearchRef = useRef("")
 
   const twitter = {
-    getWallData: async function (searchString, searchType) {
+    getWallTweets: async function (searchString, searchType) {
       await axios
         .get(`/api/wall/${searchType}?search=${searchString}`)
-        .then((res) => setTweetsWallData(res.data.statuses))
+        .then((res) => setWallTweets(res.data.statuses))
         .catch((error) => console.log(error));
     },
     getSingleTweet: async function (searchString, searchType) {
@@ -31,21 +31,6 @@ function App() {
         .catch((error) => console.log(error));
     },
   };
-
-  // async function getTweets(searchString, searchType) {
-  //   const response = await axios
-  //     .get(`/api/${searchType}?search=${searchString}`)
-  //     .then((res) => setTweetsData(res.data.statuses));
-  // }
-
-  // useEffect(() => {
-  //   async function getTwitter() {
-  //     const response = await axios
-  //       .get("http://localhost:5000/twitter")
-  //       .then((res) => setData(res));
-  //     console.log(data);
-  //   }
-  // }, [data]);
 
   function handleChange(event) {
     const { value } = event.target;
@@ -58,9 +43,7 @@ function App() {
     //   getTweets(searchInput, "user");
     // } else {
     const searchType = event.currentTarget.dataset.type;
-    twitter.getWallData(searchString, searchType);
-
-    // clearSearchRef.current.value = ""
+    twitter.getWallTweets(searchString, searchType);
   }
 
   function handleClickImage(event) {
@@ -71,21 +54,17 @@ function App() {
   return (
     <div>
       <Navbar />
-      <p>{data}</p>
       <Route path="/" component={App}>
         <Switch>
           <Route path="/test">
             <Searchbar
-              // handleSubmit={handleSubmit}
               handleChange={handleChange}
               handleClick={handleClickButton}
-              // clearSearchRef={clearSearchRef}
             />
-            <Tiles tweetData={tweetsWallData} />
+            <Tiles tweetData={wallTweets} />
           </Route>
           <Route path="/bye">
-            <Carousel handleClickImage={handleClickImage} />
-            <Quote tweetData={tweetData} />
+            <Carousel handleClickImage={handleClickImage} tweet={tweetData} />
           </Route>
         </Switch>
       </Route>

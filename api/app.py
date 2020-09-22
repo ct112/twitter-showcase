@@ -111,17 +111,3 @@ def random():
 if __name__ == '__main__':
     app.run(debug=True)
 
-# def parse_tweets(tweets):
-#     filtered_tweet = {}
-#     tweets_array = []
-#     tweet_filter = ["id", "favorite_count", "created_at", "text"]
-#
-#     for tweet in tweets["statuses"]:
-#         for key, value in tweet.items():
-#             if key in tweet_filter:
-#                 filtered_tweet[key] = value
-#
-#         tweets_array.append(filtered_tweet)
-#         filtered_tweet = {}
-#
-#     return tweets_array

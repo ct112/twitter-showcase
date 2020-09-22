@@ -3,7 +3,7 @@ import { Button, InputGroup, FormControl } from "react-bootstrap";
 
 function Searchbar({ handleChange, handleClick }) {
   return (
-    <InputGroup className="mb-3">
+    <InputGroup className="mb-3 mt-4">
       <FormControl
         onChange={(event) => handleChange(event)}
         placeholder="Search"
