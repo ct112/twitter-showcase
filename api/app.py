@@ -73,22 +73,6 @@ def request_authorization_twitter_api():
     post_request_token()
 
 
-# def parse_tweets(tweets):
-#     filtered_tweet = {}
-#     tweets_array = []
-#     tweet_filter = ["id", "favorite_count", "created_at", "text"]
-#
-#     for tweet in tweets["statuses"]:
-#         for key, value in tweet.items():
-#             if key in tweet_filter:
-#                 filtered_tweet[key] = value
-#
-#         tweets_array.append(filtered_tweet)
-#         filtered_tweet = {}
-#
-#     return tweets_array
-
-
 request_authorization_twitter_api()
 
 
@@ -114,21 +98,17 @@ def user():
 if __name__ == '__main__':
     app.run(debug=True)
 
-# def filter_tweet(tweet_subdata):
+# def parse_tweets(tweets):
+#     filtered_tweet = {}
+#     tweets_array = []
+#     tweet_filter = ["id", "favorite_count", "created_at", "text"]
 #
-#     if (tweet_subdata in tweet_items):
-#         return True
-#     else:
-#         return False
-
-# tweet_dict = get_twitter_data()
-# new_dict = {}
-# array= []
-# tweet_items = ["user","entities"]
+#     for tweet in tweets["statuses"]:
+#         for key, value in tweet.items():
+#             if key in tweet_filter:
+#                 filtered_tweet[key] = value
 #
-# for tweet in tweet_dict["statuses"]:
-#     for key, value in tweet.items():
-#         if (key in tweet_items):
-#             new_dict[key] = value
-#     array.append(new_dict)
-# print(f'{array[0]}', file=sys.stderr)
+#         tweets_array.append(filtered_tweet)
+#         filtered_tweet = {}
+#
+#     return tweets_array

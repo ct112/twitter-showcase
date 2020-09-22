@@ -1,19 +1,30 @@
-import React from "react"
-import Moment from 'react-moment';
-import 'moment-timezone';
+import React from "react";
+import Moment from "react-moment";
 
-function Cards(){
+function Cards({
+  id,
+  screen_name,
+  date_created,
+  img_url,
+  favorite_count,
+  text,
+}) {
+  return (
+    <div className="card" style={{ width: 300 }} key={id}>
+      <div className="card-header">
+        <img src={img_url} alt={`${screen_name} profile pic`} />
+      </div>
+      <div className="card-body">
+        <h5 className="card-title">{screen_name}</h5>
+        <h6>
+          <Moment format="MM/DD/YYYY">{date_created}</Moment>
+        </h6>
 
-    return(
-        <div className="card" style="width: 300px;">
-            <img src="images/sample.svg" className="card-img-top" alt="..."/>
-                <div className="card-body text-center">
-                    <h5 className="card-title">Alice Liddel</h5>
-                    <p className="card-text">Alice is a freelance web designer and developer based in London. She is
-                        specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
-                    <a href="#" className="btn btn-primary">View Profile</a>
-                </div>
-        </div>
-
-    )
+        <p className="card-text">{text}</p>
+      </div>
+      <div className="card-footer text-muted">{favorite_count}</div>
+    </div>
+  );
 }
+
+export default Cards;

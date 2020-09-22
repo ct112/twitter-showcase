@@ -36,11 +36,6 @@ function App() {
   //   }
   // }, [data]);
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //
-  //   // don't forget to check search string for white spaces and add + to the search q
-  // }
 
   function handleChange(event) {
     let { value } = event.target;
