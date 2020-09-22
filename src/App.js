@@ -28,6 +28,7 @@ function App() {
       await axios
         .get(`/api/randomtweet/${searchType}?search=${searchString}`)
         .then((res) => setTweetData(res.data))
+          .then(console.table(tweetData))
         .catch((error) => console.log(error));
     },
   };

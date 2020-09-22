@@ -15,8 +15,8 @@ function Carousel({ handleClickImage, tweet }) {
     { name: "Barack Obama", src: obama, twitterHandle: "BarackObama" },
     { name: "Micheal Jordan", src: jordan, twitterHandle: "Jumpman23" },
     { name: "Michio Kaku", src: kaku, twitterHandle: "michiokaku" },
-    { name: "Warren Buffet", src: buffet, twitterHandle: "WarrenBuffet" },
-    { name: "Stephen Curry", src: curry, twitterHandle: "StephCurry30" },
+    { name: "Warren Buffet", src: buffet, twitterHandle: "WarrenBuffett" },
+    { name: "Stephen Curry", src: curry, twitterHandle: "StephenCurry30" },
   ];
   const images = twitterCelebs.map((celeb) => {
     return (
