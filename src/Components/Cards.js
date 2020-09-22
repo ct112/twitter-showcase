@@ -10,7 +10,7 @@ function Cards({
   text,
 }) {
   return (
-    <div className="card" style={{ width: 300 }} key={id}>
+    <div className="card" style={{ width: 450 }} key={id}>
       <div className="card-header">
         <img src={img_url} alt={`${screen_name} profile pic`} />
       </div>

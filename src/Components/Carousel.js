@@ -1,21 +1,37 @@
 import React, { useState } from "react";
 import Moment from "react-moment";
 import "moment-timezone";
-import obama from "./obama.jpg";
+import obama from "../img/obama.jpg";
+import curry from "../img/curry.png";
+import jordan from "../img/jordan.jpg";
+import kaku from "../img/Michio_Kaku.jpg";
+import buffet from "../img/warren_buffett.jpg";
 import Coverflow from "react-coverflow";
 import { StyleRoot } from "radium";
 
 function Carousel() {
-  const [twitterCelebs, setTwitterCelebs] = useState([]);
-  // setTwitterCelebs([{name:"Barack Obama",
-  // src:}])
+
+  const twitterCelebs=[
+    { name: "Obama", src: obama },
+    { name: "Jordan", src: jordan },
+    { name: "Kaku", src: kaku },
+    { name: "Buffet", src: buffet },
+    { name: "Curry", src: curry },
+  ];
+    const images = twitterCelebs.map((celeb) => {
+          return (
+            <div onClick={() => displayAlert()}>
+              <img width="350px" src={celeb.src} alt={celeb.name} />
+            </div>
+          );
+        })
   function displayAlert() {
     alert("I was clicked");
   }
+
   return (
     <StyleRoot>
       <Coverflow
-        width="2000px"
         displayQuantityOfSide={2}
         navigation={true}
         enableHeading={true}
@@ -32,21 +48,7 @@ function Carousel() {
           },
         }}
       >
-        <div onClick={() => displayAlert()}>
-          <img width="400px" src={obama} alt="Obama" />
-        </div>
-        <div  onClick={() => displayAlert()}>
-          <img width="400px" src={obama} alt="Obama" />
-        </div>
-        <div onClick={() => displayAlert()}>
-          <img width="400px" src={obama} alt="Obama" />
-        </div>
-        <div onClick={() => displayAlert()}>
-          <img width="400px" src={obama} alt="Obama" />
-        </div>
-        <div onClick={() => displayAlert()}>
-          <img width="400px" src={obama} alt="Obama" />
-        </div>
+          {images}
       </Coverflow>
     </StyleRoot>
   );
@@ -85,3 +87,17 @@ export default Carousel;
 //         <span className="sr-only">Next</span>
 //     </a>
 // </div>
+
+//
+// <div onClick={() => displayAlert()}>
+//           <img width="400px" src={obama} alt="Obama" />
+//         </div>
+//         <div onClick={() => displayAlert()}>
+//           <img width="400px" src={obama} alt="Obama" />
+//         </div>
+//         <div onClick={() => displayAlert()}>
+//           <img width="400px" src={obama} alt="Obama" />
+//         </div>
+//         <div onClick={() => displayAlert()}>
+//           <img width="400px" src={obama} alt="Obama" />
+//         </div>

@@ -12,7 +12,7 @@ function Tiles(props) {
       date_created={item.created_at}
       img_url={item.user.profile_image_url}
       favorite_count={item.favorite_count}
-      text={item.text}
+      text={item.full_text}
     />
   ));
   return (

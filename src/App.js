@@ -12,9 +12,7 @@ import Carousel from "./Components/Carousel";
 function App() {
   const [data, setData] = useState([]);
   const [searchString, setSearchString] = useState("");
-  const [searchType, setSearchType] = useState(null);
-  const [tweetsWalldata, setTweetsWallData] = useState([]);
-  const [randomTweetdata, setRandomTweetData] = useState(null);
+  const [tweetsData, setTweetsData] = useState([]);
   // const clearSearchRef = useRef("")
 
   async function getTweets(searchString, searchType) {
@@ -22,7 +20,7 @@ function App() {
       .get(
         `/api/${searchType}?search=${searchString}`
       )
-      .then((res) => setTweetsWallData(res.data.statuses))
+      .then((res) => setTweetsData(res.data.statuses))
 
 
   }
@@ -44,7 +42,6 @@ function App() {
 
   function handleClick(event){
     const searchType = event.currentTarget.dataset.type
-    // const tweetsReturnedCount = event.currentTarget.dataset.count
     getTweets(searchString, searchType);
     // clearSearchRef.current.value = ""
 
@@ -56,14 +53,14 @@ function App() {
       <p>{data}</p>
       <Route path="/" component={App}>
         <Switch>
-          <Route path="/test">a
+          <Route path="/test">
             <Searchbar
               // handleSubmit={handleSubmit}
               handleChange={handleChange}
               handleClick={handleClick}
               // clearSearchRef={clearSearchRef}
             />
-            <Tiles tweetData={tweetsWalldata}/>
+            <Tiles tweetData={tweetsData}/>
           </Route>
           <Route path="/bye">
             <Carousel/>

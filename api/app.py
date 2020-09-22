@@ -45,13 +45,13 @@ print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
 
 
 def set_search_params_content(search_string):
-    search_parameters = {"q": search_string, "result_type": "popular", "count": 15}
+    search_parameters = {"q": search_string, "result_type": "popular", "count": 15, "tweet_mode":"extended"}
     # print(search_parameters, file=sys.stderr)
     return search_parameters
 
 
 def set_search_params_user(search_string):
-    search_parameters = {"screen_name": f"@{search_string}", "lang": "en"}
+    search_parameters = {"screen_name": f"@{search_string}", "lang": "en", "tweet_mode": "extended"}
     return search_parameters
 
 
