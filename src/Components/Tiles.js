@@ -5,7 +5,7 @@ import Moment from "react-moment";
 import Cards from "./Cards";
 
 function Tiles(props) {
-  const tweetData = props.tweetData.map((item) => (
+  const tweetCards = props.tweetData.map((item) => (
     <Cards
       id={item.id}
       screen_name={item.user.screen_name}
@@ -21,7 +21,7 @@ function Tiles(props) {
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
     >
-      {tweetData}
+      {tweetCards}
     </Masonry>
   );
 }

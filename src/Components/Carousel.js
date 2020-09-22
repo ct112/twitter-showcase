@@ -8,15 +8,16 @@ import kaku from "../img/Michio_Kaku.jpg";
 import buffet from "../img/warren_buffett.jpg";
 import Coverflow from "react-coverflow";
 import { StyleRoot } from "radium";
+import Quote from "./Quote";
 
 function Carousel() {
 
   const twitterCelebs=[
-    { name: "Obama", src: obama },
-    { name: "Jordan", src: jordan },
-    { name: "Kaku", src: kaku },
-    { name: "Buffet", src: buffet },
-    { name: "Curry", src: curry },
+    { name: "Barack Obama", src: obama },
+    { name: "Micheal Jordan", src: jordan },
+    { name: "Michio Kaku", src: kaku },
+    { name: "Warren Buffet", src: buffet },
+    { name: "Stephen Curry", src: curry },
   ];
     const images = twitterCelebs.map((celeb) => {
           return (
@@ -50,6 +51,7 @@ function Carousel() {
       >
           {images}
       </Coverflow>
+        <Quote/>
     </StyleRoot>
   );
 }

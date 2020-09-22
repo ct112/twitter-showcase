@@ -8,7 +8,7 @@ function Cards({
   img_url,
   favorite_count,
   text,
-}) {
+},) {
   return (
     <div className="card" style={{ width: 450 }} key={id}>
       <div className="card-header">
