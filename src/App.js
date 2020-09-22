@@ -8,22 +8,28 @@ import Searchbar from "./Components/Searchbar";
 import Tiles from "./Components/Tiles";
 import Bye from "./Components/Bye";
 import Carousel from "./Components/Carousel";
+import Quote from "./Components/Quote";
 
 function App() {
   const [data, setData] = useState([]);
   const [searchString, setSearchString] = useState("");
   const [tweetsData, setTweetsData] = useState([]);
+  const [tweetsWallData, setTweetsWallData]= useState([])
   // const clearSearchRef = useRef("")
 
-  async function getTweets(searchString, searchType) {
-    const response = await axios
-      .get(
-        `/api/${searchType}?search=${searchString}`
-      )
-      .then((res) => setTweetsData(res.data.statuses))
+  const twitter = {
+    getWallData: async function (searchString, searchType) {
+      await axios
+        .get(`/api/${searchType}?search=${searchString}`)
+        .then((res) => setTweetsWallData(res.data.statuses));
+    },
+  };
 
-
-  }
+  // async function getTweets(searchString, searchType) {
+  //   const response = await axios
+  //     .get(`/api/${searchType}?search=${searchString}`)
+  //     .then((res) => setTweetsData(res.data.statuses));
+  // }
 
   // useEffect(() => {
   //   async function getTwitter() {
@@ -34,17 +40,20 @@ function App() {
   //   }
   // }, [data]);
 
-
   function handleChange(event) {
     let { value } = event.target;
     setSearchString(value);
   }
 
-  function handleClick(event){
-    const searchType = event.currentTarget.dataset.type
-    getTweets(searchString, searchType);
-    // clearSearchRef.current.value = ""
+  function handleClick(event, ...arg) {
+    // const [searchInput] = [...arg];
+    // if (searchInput) {
+    //   getTweets(searchInput, "user");
+    // } else {
+      const searchType = event.currentTarget.dataset.type;
+      twitter.getWallData(searchString, searchType)
 
+    // clearSearchRef.current.value = ""
   }
 
   return (
@@ -60,10 +69,11 @@ function App() {
               handleClick={handleClick}
               // clearSearchRef={clearSearchRef}
             />
-            <Tiles tweetData={tweetsData}/>
+            <Tiles tweetData={tweetsWallData} />
           </Route>
           <Route path="/bye">
-            <Carousel/>
+            <Carousel handleClick={handleClick} />
+            <Quote tweetData={tweetsData} />
           </Route>
         </Switch>
       </Route>

@@ -10,22 +10,24 @@ import Coverflow from "react-coverflow";
 import { StyleRoot } from "radium";
 import Quote from "./Quote";
 
-function Carousel() {
-
-  const twitterCelebs=[
+function Carousel({ handleClick }) {
+  const twitterCelebs = [
     { name: "Barack Obama", src: obama },
     { name: "Micheal Jordan", src: jordan },
     { name: "Michio Kaku", src: kaku },
     { name: "Warren Buffet", src: buffet },
     { name: "Stephen Curry", src: curry },
   ];
-    const images = twitterCelebs.map((celeb) => {
-          return (
-            <div onClick={() => displayAlert()}>
-              <img width="350px" src={celeb.src} alt={celeb.name} />
-            </div>
-          );
-        })
+  const images = twitterCelebs.map((celeb) => {
+    return (
+      <div
+
+        onClick={(event) => handleClick(event,"andysterks")}
+      >
+        <img width="350px" src={celeb.src} alt={celeb.name} />
+      </div>
+    );
+  });
   function displayAlert() {
     alert("I was clicked");
   }
@@ -49,9 +51,8 @@ function Carousel() {
           },
         }}
       >
-          {images}
+        {images}
       </Coverflow>
-        <Quote/>
     </StyleRoot>
   );
 }
