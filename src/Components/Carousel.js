@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Moment from "react-moment";
 import "moment-timezone";
-import obama from "../img/obama.jpg";
+import obama from "../img/obamabarack3.jpg";
 import curry from "../img/curry.png";
 import jordan from "../img/jordan.jpg";
 import kaku from "../img/Michio_Kaku.jpg";
-import buffet from "../img/warren_buffett.jpg";
+import musk from "../img/elon.jpg";
 import Coverflow from "react-coverflow";
 import { StyleRoot } from "radium";
 import Quote from "./Quote";
@@ -15,12 +15,12 @@ function Carousel({ handleClickImage, tweet }) {
     { name: "Barack Obama", src: obama, twitterHandle: "BarackObama" },
     { name: "Micheal Jordan", src: jordan, twitterHandle: "Jumpman23" },
     { name: "Michio Kaku", src: kaku, twitterHandle: "michiokaku" },
-    { name: "Warren Buffet", src: buffet, twitterHandle: "WarrenBuffett" },
+    { name: "Elon Musk", src: musk, twitterHandle: "elonmusk" },
     { name: "Stephen Curry", src: curry, twitterHandle: "StephenCurry30" },
   ];
-  const images = twitterCelebs.map((celeb) => {
+  const images = twitterCelebs.map((celeb, index) => {
     return (
-      <div onClick={(event) => handleClickImage(event)}>
+      <div key={index} onClick={(event) => handleClickImage(event)}>
         <img
           id={celeb.twitterHandle}
           width="350px"
