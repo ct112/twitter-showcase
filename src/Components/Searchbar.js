@@ -27,10 +27,4 @@ function Searchbar({ handleChange, handleClick }) {
   );
 }
 export default Searchbar;
-// <Button
-//          variant="outline-secondary"
-//          data-type="user"
-//          onClick={(event) => handleClick(event)}
-//        >
-//          User
-//        </Button>
+

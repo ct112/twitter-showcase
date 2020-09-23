@@ -103,11 +103,10 @@ def random():
     search_header = set_search_header()
     tweets = get_twitter_data(search_header, search_params, "user")
     tweets = {"statuses": tweets}
-    random_number = randint(0, 14)
+    random_number = randint(0, 19)
     tweet = tweets["statuses"][random_number]
     return jsonify(tweet)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-

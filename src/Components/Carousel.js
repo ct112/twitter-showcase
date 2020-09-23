@@ -10,7 +10,7 @@ import Coverflow from "react-coverflow";
 import { StyleRoot } from "radium";
 import Quote from "./Quote";
 
-function Carousel({ handleClickImage, tweet }) {
+function Carousel({ handleClickImage, tweet, name }) {
   const twitterCelebs = [
     { name: "Barack Obama", src: obama, twitterHandle: "BarackObama" },
     { name: "Micheal Jordan", src: jordan, twitterHandle: "Jumpman23" },
@@ -32,75 +32,30 @@ function Carousel({ handleClickImage, tweet }) {
   });
 
   return (
-    <StyleRoot>
-      <Coverflow
-        displayQuantityOfSide={2}
-        navigation={true}
-        enableHeading={true}
-        enableScroll={true}
-        clickable={true}
-        media={{
-          "@media (max-width: 900px)": {
-            width: "600px",
-            height: "300px",
-          },
-          "@media (min-width: 900px)": {
-            width: "1500px",
-            height: "400px",
-          },
-        }}
-      >
-        {images}
-      </Coverflow>
-        <Quote tweet={tweet}/>
-    </StyleRoot>
+    <div>
+      <StyleRoot>
+        <Coverflow
+          displayQuantityOfSide={2}
+          navigation={true}
+          enableHeading={true}
+          enableScroll={true}
+          clickable={true}
+          media={{
+            "@media (max-width: 900px)": {
+              width: "600px",
+              height: "300px",
+            },
+            "@media (min-width: 900px)": {
+              width: "1500px",
+              height: "400px",
+            },
+          }}
+        >
+          {images}
+        </Coverflow>
+        <Quote tweet={tweet} />
+      </StyleRoot>
+    </div>
   );
 }
 export default Carousel;
-
-// <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-//     <ol className="carousel-indicators">
-//         <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-//         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-//         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-//     </ol>
-//     <div className="carousel-inner">
-//         <div className="carousel-item active">
-//             <img
-//                 className="d-block w-100"
-//                 src={obama} alt="First    slide"/>
-//         </div>
-//         <div className="carousel-item">
-//             <img
-//                 className="d-block w-100"
-//                 src={obama}/>
-//         </div>
-//         <div className="carousel-item">
-//             <img
-//                 className="d-block w-100"
-//                 src={obama}/>
-//         </div>
-//     </div>
-//     <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-//         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-//         <span className="sr-only">Previous</span>
-//     </a>
-//     <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-//         <span className="carousel-control-next-icon" aria-hidden="true"></span>
-//         <span className="sr-only">Next</span>
-//     </a>
-// </div>
-
-//
-// <div onClick={() => displayAlert()}>
-//           <img width="400px" src={obama} alt="Obama" />
-//         </div>
-//         <div onClick={() => displayAlert()}>
-//           <img width="400px" src={obama} alt="Obama" />
-//         </div>
-//         <div onClick={() => displayAlert()}>
-//           <img width="400px" src={obama} alt="Obama" />
-//         </div>
-//         <div onClick={() => displayAlert()}>
-//           <img width="400px" src={obama} alt="Obama" />
-//         </div>

@@ -1,7 +1,6 @@
 import React from "react";
 
 function Quote(props) {
-
   return (
     <section id="quote" className="bg-parallax py-5 mt-3">
       <div className="container">

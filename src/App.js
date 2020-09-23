@@ -15,7 +15,7 @@ function App() {
   const [searchString, setSearchString] = useState("");
   const [tweetData, setTweetData] = useState([]);
   const [wallTweets, setWallTweets] = useState([]);
-  // const clearSearchRef = useRef("")
+  const [searchName, setSearchName] = useState("");
 
   const twitter = {
     getWallTweets: async function (searchString, searchType) {
@@ -31,6 +31,9 @@ function App() {
         .catch((error) => console.log(error));
     },
   };
+  useEffect(() => {
+    twitter.getSingleTweet(searchName, "user");
+  }, [searchName]);
 
   function handleChange(event) {
     const { value } = event.target;
@@ -47,8 +50,7 @@ function App() {
   }
 
   function handleClickImage(event) {
-    const searchName = event.target.id;
-    twitter.getSingleTweet(searchName, "user");
+    setSearchName(event.target.id);
   }
 
   return (
