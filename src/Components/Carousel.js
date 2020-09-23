@@ -10,7 +10,8 @@ import Coverflow from "react-coverflow";
 import { StyleRoot } from "radium";
 import Quote from "./Quote";
 
-function Carousel({ handleClickImage, tweet, name }) {
+function Carousel({ handleClickImage, tweet }) {
+
   const twitterCelebs = [
     { name: "Barack Obama", src: obama, twitterHandle: "BarackObama" },
     { name: "Micheal Jordan", src: jordan, twitterHandle: "Jumpman23" },

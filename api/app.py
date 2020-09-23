@@ -105,6 +105,7 @@ def random():
     tweets = {"statuses": tweets}
     random_number = randint(0, 19)
     tweet = tweets["statuses"][random_number]
+    print(tweet, file=sys.stderr)
     return jsonify(tweet)
 
 

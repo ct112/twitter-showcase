@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 //import routes from "./routes";
 import Navbar from "./Components/Navbar";
@@ -13,9 +13,11 @@ import Quote from "./Components/Quote";
 function App() {
   const [data, setData] = useState([]);
   const [searchString, setSearchString] = useState("");
-  const [tweetData, setTweetData] = useState([]);
+  const [tweetData, setTweetData] = useState(null);
   const [wallTweets, setWallTweets] = useState([]);
   const [searchName, setSearchName] = useState("");
+  const [name, setName] = useState();
+  let UserContext = createContext("");
 
   const twitter = {
     getWallTweets: async function (searchString, searchType) {
@@ -28,6 +30,7 @@ function App() {
       await axios
         .get(`/api/randomtweet/${searchType}?search=${searchString}`)
         .then((res) => setTweetData(res.data))
+
         .catch((error) => console.log(error));
     },
   };
