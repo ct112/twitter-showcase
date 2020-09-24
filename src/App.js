@@ -52,14 +52,14 @@ function App() {
       <Navbar />
       <Route path="/" component={App}>
         <Switch>
-          <Route path="/test">
+          <Route path="/wall">
             <Searchbar
               handleChange={handleChange}
               handleClick={handleClickButton}
             />
             <Tiles tweetData={wallTweets} />
           </Route>
-          <Route path="/bye">
+          <Route path="/tweet">
             <Carousel handleClickImage={handleClickImage} tweet={tweetData} />
           </Route>
         </Switch>

@@ -2,8 +2,14 @@ import React from "react";
 import Masonry from "react-masonry-css";
 import "../Tiles.css";
 import Cards from "./Cards";
+import Modal from "./Modal";
 
 function Tiles(props) {
+  if (!Array.isArray(props.tweetData)) {
+    return (
+        <Modal/>
+    )
+  }
   const tweetCards = props.tweetData.map((item) => (
     <Cards
       id={item.id}

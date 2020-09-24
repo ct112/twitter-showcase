@@ -27,10 +27,10 @@ function Navbar() {
           <Link to="/" className="flex-fill text-center text-light">
             Home
           </Link>
-          <Link to="/test" className="flex-fill text-center text-light">
+          <Link to="/wall" className="flex-fill text-center text-light">
             Twitter Wall
           </Link>
-          <Link to="/bye" className="flex-fill text-center text-light">
+          <Link to="/tweet" className="flex-fill text-center text-light">
             Random Tweet
           </Link>
         </nav>
