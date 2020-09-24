@@ -42,9 +42,6 @@ def post_request_token():
     app_authentication_data["bearer_token"] = response.json()["access_token"]
 
 
-print(f"{app_authentication_data['bearer_token']}", file=sys.stderr)
-
-
 def set_search_params_content(search_string):
     search_parameters = {"q": search_string, "result_type": "popular", "count": 15, "tweet_mode": "extended"}
     # print(search_parameters, file=sys.stderr)
@@ -105,7 +102,6 @@ def random():
     tweets = {"statuses": tweets}
     random_number = randint(0, 19)
     tweet = tweets["statuses"][random_number]
-    print(tweet, file=sys.stderr)
     return jsonify(tweet)
 
 

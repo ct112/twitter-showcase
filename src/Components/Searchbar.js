@@ -10,9 +10,9 @@ function Searchbar({ handleChange, handleClick }) {
         aria-label="Search"
         aria-describedby="basic-addon2"
       />
-      {["content", "user"].map((searchType) => {
+      {["content", "user"].map((searchType, index) => {
         return (
-          <InputGroup.Append>
+          <InputGroup.Append key={index}>
             <Button
               variant="outline-secondary"
               data-type={searchType}

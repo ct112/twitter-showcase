@@ -1,7 +1,6 @@
 import React from "react";
 import Masonry from "react-masonry-css";
 import "../Tiles.css";
-import Moment from "react-moment";
 import Cards from "./Cards";
 
 function Tiles(props) {

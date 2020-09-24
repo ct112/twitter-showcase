@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import Moment from "react-moment";
-import "moment-timezone";
+import React from "react";
 import obama from "../img/obamabarack3.jpg";
 import curry from "../img/curry.png";
 import jordan from "../img/jordan.jpg";
@@ -11,7 +9,6 @@ import { StyleRoot } from "radium";
 import Quote from "./Quote";
 
 function Carousel({ handleClickImage, tweet }) {
-
   const twitterCelebs = [
     { name: "Barack Obama", src: obama, twitterHandle: "BarackObama" },
     { name: "Micheal Jordan", src: jordan, twitterHandle: "Jumpman23" },
